@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Personal portfolio website showcasing projects, experience, and skills"
+    />
+    <meta name="author" content="Your Name" />
+    <meta
+      name="keywords"
+      content="software developer, web developer, portfolio, projects, skills"
+    />
+    <meta property="og:image" content="images/profile.jpg" />
+
+    <title>Portfolio - Jeffrey Ho</title>
+
+    <!-- Feather Icons CDN -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.min.css" />
+  </head>
+  <body>
+    <!-- Skip Links for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#navigation" class="skip-link">Skip to navigation</a>
+
+    <!-- Header Section -->
+    <header class="header-container" id="header">
+      <div class="profile-section">
+        <img
+          src="images/profile.jpg"
+          alt="Profile image of me"
+          class="profile-image"
+          loading="eager"
+          width="200"
+          height="200"
+        />
+        <h1 class="main-title">Jeffrey Ho</h1>
+        <p class="subtitle">Software Developer</p>
+      </div>
+
+      <nav class="social-links">
+        <a
+          href="https://linkedin.com/in/jeffreyho1211"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-icon"
+          aria-label="LinkedIn"
+        >
+          <i data-feather="linkedin"></i>
+        </a>
+        <a
+          href="https://github.com/jho1211"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-icon"
+          aria-label="GitHub"
+        >
+          <i data-feather="github"></i>
+        </a>
+        <a
+          href="https://instagram.com/jeffreyho1211"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-icon"
+          aria-label="Instagram"
+        >
+          <i data-feather="instagram"></i>
+        </a>
+      </nav>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-container" id="navigation">
+      <ul class="nav-menu" id="nav-menu" role="menubar" aria-hidden="true">
+        <li role="none">
+          <a href="#header" class="nav-link" role="menuitem">Home</a>
+        </li>
+        <li role="none">
+          <a href="#timeline" class="nav-link" role="menuitem">Experience</a>
+        </li>
+        <li role="none">
+          <a href="#projects" class="nav-link" role="menuitem">Projects</a>
+        </li>
+        <li role="none">
+          <a href="#skills" class="nav-link" role="menuitem">Skills</a>
+        </li>
+        <li role="none">
+          <a href="#education" class="nav-link" role="menuitem">Education</a>
+        </li>
+      </ul>
+      <button
+        class="nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+      >
+        <i data-feather="menu"></i>
+        <span class="sr-only">Toggle navigation menu</span>
+      </button>
+    </nav>
+
+    <!-- Main Content -->
+    <main role="main" id="main-content">
+      <!-- Timeline Section -->
+      <section
+        class="timeline-section"
+        id="timeline"
+        aria-labelledby="experience-heading"
+      >
+        <h2 class="section-title" id="experience-heading">Experience</h2>
+        <div
+          class="timeline-container"
+          role="list"
+          aria-label="Work experience timeline"
+        >
+          <!-- Timeline items will be dynamically populated by JavaScript -->
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section
+        class="projects-section"
+        id="projects"
+        aria-labelledby="projects-heading"
+      >
+        <h2 class="section-title" id="projects-heading">Projects</h2>
+        <div
+          class="projects-container"
+          role="list"
+          aria-label="Portfolio projects"
+        >
+          <!-- Project cards will be populated in task 6 -->
+        </div>
+      </section>
+
+      <!-- Skills Section -->
+      <section
+        class="skills-section"
+        id="skills"
+        aria-labelledby="skills-heading"
+      >
+        <h2 class="section-title" id="skills-heading">Skills</h2>
+        <div class="skills-container" role="list" aria-label="Technical skills">
+          <!-- Skills will be populated in task 7 -->
+        </div>
+      </section>
+
+      <!-- Education Section -->
+      <section
+        class="education-section"
+        id="education"
+        aria-labelledby="education-heading"
+      >
+        <h2 class="section-title" id="education-heading">Education</h2>
+        <div
+          class="education-container"
+          role="list"
+          aria-label="Educational background"
+        >
+          <!-- Education information will be populated in task 8 -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <p class="footer-text">&copy; 2024 Your Name. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#header" class="footer-link">Back to Top</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.min.js"></script>
+    <!-- For production, use: 
+    <script src="js/dataLoader.min.js"></script>
+    <script src="js/main.min.js"></script> -->
+    <script>
+      // Initialize Feather Icons
+      feather.replace();
+    </script>
+  </body>
+</html>

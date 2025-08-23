@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "institution": "University of Technology",
+    "degree": "Bachelor of Science in Computer Science",
+    "graduationDate": "May 2019",
+    "gpa": "3.8/4.0",
+    "relevantCoursework": [
+      "Data Structures & Algorithms",
+      "Database Systems",
+      "Software Engineering",
+      "Web Development",
+      "Computer Networks",
+      "Machine Learning"
+    ],
+    "achievements": [
+      "Dean's List (Fall 2017, Spring 2018)",
+      "CS Department Outstanding Student Award",
+      "Magna Cum Laude"
+    ]
+  },
+  {
+    "id": 2,
+    "institution": "Community College",
+    "degree": "Associate of Science in Mathematics",
+    "graduationDate": "May 2017",
+    "gpa": "3.9/4.0",
+    "relevantCoursework": [
+      "Calculus I, II, III",
+      "Linear Algebra",
+      "Statistics",
+      "Physics I, II"
+    ],
+    "achievements": [
+      "Phi Theta Kappa Honor Society",
+      "Mathematics Department Award",
+      "Summa Cum Laude"
+    ]
+  }
+]

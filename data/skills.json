@@ -1,0 +1,29 @@
+{
+  "Languages": ["JavaScript", "TypeScript", "Python", "Java", "C++", "PHP"],
+  "Web Technologies": [
+    "React",
+    "Vue.js",
+    "Node.js",
+    "Express",
+    "HTML5",
+    "CSS3",
+    "Next.js"
+  ],
+  "Databases": [
+    "MongoDB",
+    "PostgreSQL",
+    "MySQL",
+    "Redis",
+    "SQLite",
+    "Firebase"
+  ],
+  "Tools & Platforms": [
+    "Git",
+    "Docker",
+    "AWS",
+    "Linux",
+    "Nginx",
+    "Webpack",
+    "Vercel"
+  ]
+}
