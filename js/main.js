@@ -1,5 +1,3 @@
-// ===== DATA LOADER UTILITY =====
-
 class DataLoader {
   constructor() {
     this.cache = new Map();
@@ -71,18 +69,13 @@ class DataLoader {
   }
 }
 
-// Create global data loader instance
 const dataLoader = new DataLoader();
 
-// ===== DATA MANAGEMENT =====
-
-// Data Storage - Will be populated from JSON files
 let projects = [];
 let skills = {};
 let education = [];
 let jobExperiences = [];
 
-// Data URLs
 const DATA_URLS = {
   projects: "data/projects.json",
   skills: "data/skills.json",
@@ -90,7 +83,6 @@ const DATA_URLS = {
   experience: "data/experience.json",
 };
 
-// Data loading functions
 async function loadAllData() {
   console.log("Loading portfolio data...");
 
@@ -102,7 +94,6 @@ async function loadAllData() {
       DATA_URLS.experience,
     ]);
 
-  // Update global variables
   projects = projectsData || [];
   skills = skillsData || {};
   education = educationData || [];
@@ -110,8 +101,6 @@ async function loadAllData() {
 
   console.log("Portfolio data loaded successfully");
 }
-
-// Individual data loading functions for specific sections
 async function loadProjectsData() {
   projects = await dataLoader.loadData(DATA_URLS.projects);
   return projects;
@@ -132,7 +121,6 @@ async function loadExperienceData() {
   return jobExperiences;
 }
 
-// Function to create timeline item HTML
 function createTimelineItem(job, index) {
   const isLeft = index % 2 === 0;
   const positionClass = isLeft ? "timeline-item--left" : "timeline-item--right";
@@ -164,7 +152,6 @@ function createTimelineItem(job, index) {
   `;
 }
 
-// Function to render timeline
 async function renderTimeline() {
   const timelineContainer = document.querySelector(".timeline-container");
 
@@ -173,24 +160,18 @@ async function renderTimeline() {
     return;
   }
 
-  // Load experience data if not already loaded
   if (jobExperiences.length === 0) {
     await loadExperienceData();
   }
 
-  // Clear existing content
   timelineContainer.innerHTML = "";
 
-  // Generate timeline items from job data
   const timelineHTML = jobExperiences
     .map((job, index) => createTimelineItem(job, index))
     .join("");
-
-  // Insert generated HTML
   timelineContainer.innerHTML = timelineHTML;
 }
 
-// Function to create project card HTML
 function createProjectCard(project) {
   const technologiesHTML = project.technologies
     .map((tech) => `<span class="tech-tag" role="listitem">${tech}</span>`)
@@ -260,7 +241,6 @@ function createProjectCard(project) {
   `;
 }
 
-// Function to render projects
 async function renderProjects() {
   const projectsContainer = document.querySelector(".projects-container");
 
@@ -269,29 +249,22 @@ async function renderProjects() {
     return;
   }
 
-  // Load projects data if not already loaded
   if (projects.length === 0) {
     await loadProjectsData();
   }
 
-  // Clear existing content
   projectsContainer.innerHTML = "";
 
-  // Generate project cards from project data
   const projectsHTML = projects
     .map((project) => createProjectCard(project))
     .join("");
 
-  // Insert generated HTML
   projectsContainer.innerHTML = projectsHTML;
-
-  // Re-initialize Feather icons for the new content
   if (typeof feather !== "undefined") {
     feather.replace();
   }
 }
 
-// Function to create skill category HTML
 function createSkillCategory(categoryName, skillsList) {
   const skillsHTML = skillsList
     .map((skill) => `<span class="skill-tag" role="listitem">${skill}</span>`)
@@ -307,7 +280,6 @@ function createSkillCategory(categoryName, skillsList) {
   `;
 }
 
-// Function to render skills section
 async function renderSkills() {
   const skillsContainer = document.querySelector(".skills-container");
 
@@ -316,24 +288,18 @@ async function renderSkills() {
     return;
   }
 
-  // Load skills data if not already loaded
   if (Object.keys(skills).length === 0) {
     await loadSkillsData();
   }
 
-  // Clear existing content
   skillsContainer.innerHTML = "";
 
-  // Generate skill categories from skills data
   const skillsHTML = Object.entries(skills)
     .map(([category, skillsList]) => createSkillCategory(category, skillsList))
     .join("");
-
-  // Insert generated HTML
   skillsContainer.innerHTML = skillsHTML;
 }
 
-// Function to create education card HTML
 function createEducationCard(edu) {
   const courseworkHTML = edu.relevantCoursework
     ? edu.relevantCoursework
@@ -396,7 +362,6 @@ function createEducationCard(edu) {
   `;
 }
 
-// Function to render education section
 async function renderEducation() {
   const educationContainer = document.querySelector(".education-container");
 
@@ -405,27 +370,20 @@ async function renderEducation() {
     return;
   }
 
-  // Load education data if not already loaded
   if (education.length === 0) {
     await loadEducationData();
   }
 
-  // Clear existing content
   educationContainer.innerHTML = "";
 
-  // Generate education cards from education data
   const educationHTML = education
     .map((edu) => createEducationCard(edu))
     .join("");
-
-  // Insert generated HTML
   educationContainer.innerHTML = educationHTML;
 }
 
-// Initialize all sections when DOM is loaded
 document.addEventListener("DOMContentLoaded", async function () {
   try {
-    // Preload all data for better performance
     await dataLoader.preload([
       DATA_URLS.projects,
       DATA_URLS.skills,
@@ -433,14 +391,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       DATA_URLS.experience,
     ]);
 
-    // Load all data into global variables
     await loadAllData();
 
-    // Use enhanced render functions with loading states
     renderTimelineWithLoading();
     renderProjectsWithLoading();
 
-    // Render skills and education with slight delays for staggered loading
     setTimeout(async () => {
       try {
         await renderSkills();
@@ -460,12 +415,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     }, 400);
   } catch (error) {
     console.error("Failed to initialize portfolio:", error);
-    // Show error message to user
     showGlobalError("Failed to load portfolio data. Please refresh the page.");
   }
 });
-
-// Global error handler
 function showGlobalError(message) {
   const errorDiv = document.createElement("div");
   errorDiv.className = "global-error";
@@ -478,26 +430,21 @@ function showGlobalError(message) {
   `;
   document.body.appendChild(errorDiv);
 }
-// ===== NAVIGATION FUNCTIONALITY =====
 
-// Navigation state
 let isMenuOpen = false;
 
-// Get navigation elements
 const navContainer = document.querySelector(".nav-container");
 const navMenu = document.querySelector(".nav-menu");
 const navToggle = document.querySelector(".nav-toggle");
 const navLinks = document.querySelectorAll(".nav-link");
 
-// Get all sections for active highlighting
 const sections = document.querySelectorAll("section, header");
 
-// Smooth scrolling function
 function smoothScrollTo(targetId) {
   const targetElement = document.getElementById(targetId);
   if (!targetElement) return;
 
-  const headerOffset = 80; // Account for fixed navigation
+  const headerOffset = 80;
   const elementPosition = targetElement.offsetTop;
   const offsetPosition = elementPosition - headerOffset;
 
@@ -507,7 +454,6 @@ function smoothScrollTo(targetId) {
   });
 }
 
-// Handle navigation link clicks
 function handleNavLinkClick(event) {
   event.preventDefault();
 
@@ -517,21 +463,17 @@ function handleNavLinkClick(event) {
   const targetId = href.substring(1);
   smoothScrollTo(targetId);
 
-  // Close mobile menu if open
   if (isMenuOpen) {
     toggleMobileMenu();
   }
 }
 
-// Toggle mobile menu
 function toggleMobileMenu() {
   isMenuOpen = !isMenuOpen;
   navMenu.classList.toggle("active", isMenuOpen);
 
-  // Prevent body scroll when menu is open
   document.body.classList.toggle("nav-open", isMenuOpen);
 
-  // Update toggle button icon
   const toggleIcon = navToggle.querySelector("i");
   if (toggleIcon) {
     toggleIcon.setAttribute("data-feather", isMenuOpen ? "x" : "menu");
@@ -540,54 +482,44 @@ function toggleMobileMenu() {
     }
   }
 
-  // Update ARIA attributes for accessibility
   navToggle.setAttribute("aria-expanded", isMenuOpen.toString());
   navMenu.setAttribute("aria-hidden", (!isMenuOpen).toString());
 
-  // Focus management for accessibility
   if (isMenuOpen) {
-    // Focus first nav link when menu opens
     const firstNavLink = navMenu.querySelector(".nav-link");
     if (firstNavLink) {
       setTimeout(() => firstNavLink.focus(), 100);
     }
   } else {
-    // Return focus to toggle button when menu closes
     navToggle.focus();
   }
 }
 
-// Close mobile menu when clicking outside
 function handleOutsideClick(event) {
   if (isMenuOpen && !navContainer.contains(event.target)) {
     toggleMobileMenu();
   }
 }
 
-// Handle scroll events for active section highlighting and nav background
 function handleScroll() {
   const scrollY = window.scrollY;
 
-  // Add scrolled class to navigation for background effect
   if (scrollY > 50) {
     navContainer.classList.add("scrolled");
   } else {
     navContainer.classList.remove("scrolled");
   }
 
-  // Find current active section
   let currentSection = "";
 
   sections.forEach((section) => {
-    const sectionTop = section.offsetTop - 100; // Offset for navigation
+    const sectionTop = section.offsetTop - 100;
     const sectionHeight = section.offsetHeight;
 
     if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
       currentSection = section.getAttribute("id");
     }
   });
-
-  // Update active navigation link
   navLinks.forEach((link) => {
     const href = link.getAttribute("href");
     if (href && href.startsWith("#")) {
@@ -602,7 +534,6 @@ function handleScroll() {
   });
 }
 
-// Throttle function for performance
 function throttle(func, limit) {
   let inThrottle;
   return function () {
@@ -616,14 +547,11 @@ function throttle(func, limit) {
   };
 }
 
-// Handle keyboard navigation
 function handleKeyDown(event) {
-  // Close mobile menu on Escape key
   if (event.key === "Escape" && isMenuOpen) {
     toggleMobileMenu();
   }
 
-  // Handle Enter and Space for nav toggle
   if (
     (event.key === "Enter" || event.key === " ") &&
     event.target === navToggle
@@ -632,7 +560,6 @@ function handleKeyDown(event) {
     toggleMobileMenu();
   }
 
-  // Handle arrow key navigation in mobile menu
   if (isMenuOpen && (event.key === "ArrowDown" || event.key === "ArrowUp")) {
     event.preventDefault();
     const navLinks = Array.from(document.querySelectorAll(".nav-link"));
@@ -647,8 +574,6 @@ function handleKeyDown(event) {
 
     navLinks[nextIndex].focus();
   }
-
-  // Handle Tab key to trap focus in mobile menu
   if (event.key === "Tab" && isMenuOpen) {
     const focusableElements = navContainer.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -670,31 +595,22 @@ function handleKeyDown(event) {
   }
 }
 
-// Initialize navigation functionality
 function initNavigation() {
-  // Add event listeners for navigation links
   navLinks.forEach((link) => {
     link.addEventListener("click", handleNavLinkClick);
   });
 
-  // Add event listener for mobile menu toggle
   if (navToggle) {
     navToggle.addEventListener("click", toggleMobileMenu);
   }
 
-  // Add scroll event listener with throttling
   window.addEventListener("scroll", throttle(handleScroll, 16));
 
-  // Add click outside listener for mobile menu
   document.addEventListener("click", handleOutsideClick);
 
-  // Add keyboard event listeners
   document.addEventListener("keydown", handleKeyDown);
 
-  // Set initial active section
   handleScroll();
-
-  // Set initial ARIA attributes
   if (navToggle) {
     navToggle.setAttribute("aria-expanded", "false");
     navToggle.setAttribute("aria-controls", "nav-menu");
@@ -707,14 +623,12 @@ function initNavigation() {
   }
 }
 
-// Handle window resize to close mobile menu on desktop
 function handleResize() {
   if (window.innerWidth > 768 && isMenuOpen) {
     toggleMobileMenu();
   }
 }
 
-// Handle touch events for better mobile interaction
 let touchStartY = 0;
 let touchEndY = 0;
 
@@ -731,26 +645,21 @@ function handleSwipeGesture() {
   const swipeThreshold = 50;
   const swipeDistance = touchStartY - touchEndY;
 
-  // Close mobile menu on upward swipe
   if (isMenuOpen && swipeDistance > swipeThreshold) {
     toggleMobileMenu();
   }
 }
 
-// Add event listeners
 window.addEventListener("resize", throttle(handleResize, 250));
 
-// Add touch event listeners for mobile menu
 if (navMenu) {
   navMenu.addEventListener("touchstart", handleTouchStart, { passive: true });
   navMenu.addEventListener("touchend", handleTouchEnd, { passive: true });
 }
 
-// Initialize navigation when DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
   initNavigation();
 
-  // Add passive event listeners for better performance on mobile
   let supportsPassive = false;
   try {
     const opts = Object.defineProperty({}, "passive", {
@@ -768,9 +677,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("touchmove", function () {}, { passive: true });
   }
 
-  // Optimize for mobile performance
   if (window.innerWidth <= 768) {
-    // Reduce animation complexity on mobile
     document.documentElement.style.setProperty(
       "--transition-normal",
       "150ms ease-out"
@@ -782,9 +689,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-// ===== ENHANCED SCROLL ANIMATIONS AND INTERACTIONS =====
-
-// Create intersection observer for scroll animations
 const observerOptions = {
   threshold: 0.1,
   rootMargin: "0px 0px -50px 0px",
@@ -795,7 +699,6 @@ const observer = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       entry.target.classList.add("animate-in");
 
-      // Add stagger delay for multiple elements
       const siblings = Array.from(entry.target.parentNode.children);
       const index = siblings.indexOf(entry.target);
       entry.target.style.transitionDelay = `${index * 0.1}s`;
@@ -803,9 +706,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Enhanced scroll animations initialization
 function initScrollAnimations() {
-  // Add animation classes to elements
   const timelineItems = document.querySelectorAll(".timeline-item");
   timelineItems.forEach((item, index) => {
     const isLeft = index % 2 === 0;
@@ -834,7 +735,6 @@ function initScrollAnimations() {
     observer.observe(item);
   });
 
-  // Section reveal animations
   const sections = document.querySelectorAll("section");
   sections.forEach((section) => {
     section.classList.add("section-reveal");
@@ -842,9 +742,6 @@ function initScrollAnimations() {
   });
 }
 
-// ===== LOADING STATES AND MICRO-INTERACTIONS =====
-
-// Show loading state for dynamic content
 function showLoadingState(container, itemClass) {
   const loadingItems = Array.from({ length: 3 }, (_, i) => {
     const item = document.createElement("div");
@@ -857,22 +754,18 @@ function showLoadingState(container, itemClass) {
   loadingItems.forEach((item) => container.appendChild(item));
 }
 
-// Remove loading state
 function hideLoadingState(container) {
   const loadingItems = container.querySelectorAll(".loading");
   loadingItems.forEach((item) => item.remove());
 }
 
-// Enhanced render functions with loading states
 async function renderTimelineWithLoading() {
   const timelineContainer = document.querySelector(".timeline-container");
   if (!timelineContainer) return;
 
-  // Show loading state
   showLoadingState(timelineContainer, "timeline-item");
 
   try {
-    // Load and render timeline data
     await renderTimeline();
     initScrollAnimations();
   } catch (error) {
@@ -886,11 +779,9 @@ async function renderProjectsWithLoading() {
   const projectsContainer = document.querySelector(".projects-container");
   if (!projectsContainer) return;
 
-  // Show loading state
   showLoadingState(projectsContainer, "project-card");
 
   try {
-    // Load and render projects data
     await renderProjects();
     initScrollAnimations();
   } catch (error) {
@@ -900,14 +791,11 @@ async function renderProjectsWithLoading() {
   }
 }
 
-// ===== SCROLL PROGRESS INDICATOR =====
 function initScrollProgress() {
-  // Create scroll progress element
   const progressBar = document.createElement("div");
   progressBar.className = "scroll-progress";
   document.body.appendChild(progressBar);
 
-  // Update progress on scroll
   function updateScrollProgress() {
     const scrollTop = window.pageYOffset;
     const docHeight =
@@ -919,7 +807,6 @@ function initScrollProgress() {
   window.addEventListener("scroll", throttle(updateScrollProgress, 10));
 }
 
-// ===== MAGNETIC HOVER EFFECTS =====
 function initMagneticHover() {
   const magneticElements = document.querySelectorAll(
     ".social-icon, .project-link, .btn"
@@ -945,7 +832,6 @@ function initMagneticHover() {
   });
 }
 
-// ===== TILT EFFECT FOR CARDS =====
 function initTiltEffect() {
   const tiltElements = document.querySelectorAll(
     ".project-card, .skill-category, .education-item"
@@ -974,14 +860,10 @@ function initTiltEffect() {
   });
 }
 
-// ===== TYPEWRITER EFFECT FOR MAIN TITLE (DISABLED) =====
 function initTypewriterEffect() {
-  // Typewriter effect disabled to prevent layout shifts
-  // The main title will display normally without animation
   return;
 }
 
-// ===== PARALLAX SCROLLING EFFECT =====
 function initParallaxEffect() {
   const parallaxElements = document.querySelectorAll(".header-container");
 
@@ -997,7 +879,6 @@ function initParallaxEffect() {
   window.addEventListener("scroll", throttle(updateParallax, 16));
 }
 
-// ===== SMOOTH REVEAL ANIMATIONS =====
 function initSmoothReveal() {
   const revealElements = document.querySelectorAll(".section-reveal");
 
@@ -1020,14 +901,10 @@ function initSmoothReveal() {
   });
 }
 
-// ===== ENHANCED NAVIGATION INTERACTIONS =====
 function enhanceNavigation() {
   const navLinks = document.querySelectorAll(".nav-link");
 
   navLinks.forEach((link) => {
-    // Removed ripple effect to prevent circle hover interference
-
-    // Enhanced hover effect
     link.addEventListener("mouseenter", () => {
       link.style.transform = "translateY(-2px)";
     });
@@ -1038,22 +915,18 @@ function enhanceNavigation() {
   });
 }
 
-// ===== PERFORMANCE OPTIMIZATIONS =====
 function optimizeAnimations() {
-  // Reduce animations on low-end devices
   if (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) {
     document.documentElement.style.setProperty("--animation-normal", "200ms");
     document.documentElement.style.setProperty("--animation-slow", "300ms");
   }
 
-  // Disable animations on mobile for better performance
   if (window.innerWidth < 768) {
     document.documentElement.style.setProperty("--animation-normal", "150ms");
     document.documentElement.style.setProperty("--animation-slow", "200ms");
   }
 }
 
-// Initialize all animations and interactions
 function initAllAnimations() {
   initScrollAnimations();
   initScrollProgress();
@@ -1066,7 +939,6 @@ function initAllAnimations() {
   optimizeAnimations();
 }
 
-// Initialize all performance and accessibility features
 function initPerformanceAndAccessibility() {
   initLazyLoading();
   optimizeImages();
@@ -1074,15 +946,12 @@ function initPerformanceAndAccessibility() {
   initPerformanceMonitoring();
 }
 
-// Initialize animations when DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
   initAllAnimations();
   initPerformanceAndAccessibility();
 });
 
-// ===== LAZY LOADING FOR IMAGES =====
 function initLazyLoading() {
-  // Check if Intersection Observer is supported
   if ("IntersectionObserver" in window) {
     const imageObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -1100,7 +969,6 @@ function initLazyLoading() {
               img.classList.add("error");
             };
 
-            // Start loading the image
             if (img.dataset.src) {
               newImg.src = img.dataset.src;
             }
@@ -1115,14 +983,12 @@ function initLazyLoading() {
       }
     );
 
-    // Observe all lazy images
     document.querySelectorAll('img[loading="lazy"]').forEach((img) => {
       imageObserver.observe(img);
     });
   }
 }
 
-// ===== IMAGE OPTIMIZATION =====
 function optimizeImages() {
   const images = document.querySelectorAll("img");
 
@@ -1143,9 +1009,7 @@ function optimizeImages() {
   });
 }
 
-// ===== ACCESSIBILITY ENHANCEMENTS =====
 function enhanceAccessibility() {
-  // Add focus indicators for keyboard navigation
   const focusableElements = document.querySelectorAll(
     'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])'
   );
@@ -1164,7 +1028,6 @@ function enhanceAccessibility() {
     });
   });
 
-  // Announce dynamic content changes to screen readers
   const announcer = document.createElement("div");
   announcer.setAttribute("aria-live", "polite");
   announcer.setAttribute("aria-atomic", "true");
@@ -1172,7 +1035,6 @@ function enhanceAccessibility() {
   announcer.id = "announcer";
   document.body.appendChild(announcer);
 
-  // Function to announce content changes
   window.announceToScreenReader = function (message) {
     announcer.textContent = message;
     setTimeout(() => {
@@ -1181,15 +1043,7 @@ function enhanceAccessibility() {
   };
 }
 
-// ===== PERFORMANCE MONITORING =====
 function initPerformanceMonitoring() {
-  // Monitor Core Web Vitals
-  if ("web-vital" in window) {
-    // This would typically use the web-vitals library
-    // For now, we'll use basic performance monitoring
-  }
-
-  // Monitor long tasks
   if ("PerformanceObserver" in window) {
     try {
       const observer = new PerformanceObserver((list) => {
@@ -1200,25 +1054,19 @@ function initPerformanceMonitoring() {
         });
       });
       observer.observe({ entryTypes: ["longtask"] });
-    } catch (e) {
-      // PerformanceObserver not supported
-    }
+    } catch (e) {}
   }
 
-  // Monitor memory usage (if available)
   if ("memory" in performance) {
     setInterval(() => {
       const memory = performance.memory;
       if (memory.usedJSHeapSize > memory.jsHeapSizeLimit * 0.9) {
         console.warn("High memory usage detected");
       }
-    }, 30000); // Check every 30 seconds
+    }, 30000);
   }
 }
 
-// ===== UTILITY FUNCTIONS =====
-
-// Debounce function for performance
 function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -1231,13 +1079,11 @@ function debounce(func, wait) {
   };
 }
 
-// Get element offset top accounting for fixed navigation
 function getElementOffsetTop(element) {
   const headerOffset = 80;
   return element.offsetTop - headerOffset;
 }
 
-// Check if element is in viewport
 function isElementInViewport(element) {
   const rect = element.getBoundingClientRect();
   return (
@@ -1249,9 +1095,7 @@ function isElementInViewport(element) {
   );
 }
 
-// Smooth scroll polyfill for older browsers
 if (!("scrollBehavior" in document.documentElement.style)) {
-  // Import smooth scroll polyfill if needed
   const script = document.createElement("script");
   script.src =
     "https://cdn.jsdelivr.net/gh/iamdustan/smoothscroll@master/src/smoothscroll.js";
