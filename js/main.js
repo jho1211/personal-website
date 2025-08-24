@@ -336,15 +336,19 @@ async function renderSkills() {
 // Function to create education card HTML
 function createEducationCard(edu) {
   const courseworkHTML = edu.relevantCoursework
-    .map((course) => `<li class="coursework-item">${course}</li>`)
-    .join("");
+    ? edu.relevantCoursework
+        .map((course) => `<li class="coursework-item">${course}</li>`)
+        .join("")
+    : "";
 
   const achievementsHTML = edu.achievements
-    .map(
-      (achievement) =>
-        `<span class="achievement-badge" role="listitem">${achievement}</span>`
-    )
-    .join("");
+    ? edu.achievements
+        .map(
+          (achievement) =>
+            `<span class="achievement-badge" role="listitem">${achievement}</span>`
+        )
+        .join("")
+    : "";
 
   return `
     <article class="education-item" role="listitem">
@@ -747,7 +751,19 @@ document.addEventListener("DOMContentLoaded", function () {
   initNavigation();
 
   // Add passive event listeners for better performance on mobile
-  if ("passive" in document.addEventListener.prototype) {
+  let supportsPassive = false;
+  try {
+    const opts = Object.defineProperty({}, "passive", {
+      get: function () {
+        supportsPassive = true;
+        return false;
+      },
+    });
+    window.addEventListener("testPassive", null, opts);
+    window.removeEventListener("testPassive", null, opts);
+  } catch (e) {}
+
+  if (supportsPassive) {
     document.addEventListener("touchstart", function () {}, { passive: true });
     document.addEventListener("touchmove", function () {}, { passive: true });
   }

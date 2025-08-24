@@ -1,40 +1,23 @@
 [
   {
     "id": 1,
-    "institution": "University of Technology",
-    "degree": "Bachelor of Science in Computer Science",
-    "graduationDate": "May 2019",
-    "gpa": "3.8/4.0",
-    "relevantCoursework": [
-      "Data Structures & Algorithms",
-      "Database Systems",
-      "Software Engineering",
-      "Web Development",
-      "Computer Networks",
-      "Machine Learning"
-    ],
-    "achievements": [
-      "Dean's List (Fall 2017, Spring 2018)",
-      "CS Department Outstanding Student Award",
-      "Magna Cum Laude"
-    ]
+    "institution": "University of British Columbia",
+    "degree": "Bachelor of Computer Science",
+    "startDate": "Sep 2023",
+    "graduationDate": "May 2026 (Expected)",
+    "gpa": "4.33/4.33",
+    "achievements": ["UBC Science Scholar"]
   },
   {
     "id": 2,
-    "institution": "Community College",
-    "degree": "Associate of Science in Mathematics",
-    "graduationDate": "May 2017",
-    "gpa": "3.9/4.0",
-    "relevantCoursework": [
-      "Calculus I, II, III",
-      "Linear Algebra",
-      "Statistics",
-      "Physics I, II"
-    ],
+    "institution": "University of British Columbia",
+    "degree": "Bachelor of Science in Biochemistry",
+    "startDate": "Sep 2017",
+    "graduationDate": "May 2022",
+    "gpa": "4.33/4.33",
     "achievements": [
-      "Phi Theta Kappa Honor Society",
-      "Mathematics Department Award",
-      "Summa Cum Laude"
+      "Society of Chemical Industry Merit Prize",
+      "Governor General's Bronze Medal"
     ]
   }
 ]

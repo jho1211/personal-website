@@ -1,29 +1,26 @@
 {
-  "Languages": ["JavaScript", "TypeScript", "Python", "Java", "C++", "PHP"],
-  "Web Technologies": [
-    "React",
-    "Vue.js",
-    "Node.js",
-    "Express",
-    "HTML5",
-    "CSS3",
-    "Next.js"
+  "Languages": [
+    "Ruby on Rails",
+    "Python",
+    "Java",
+    "Typescript",
+    "C++",
+    "C",
+    "C#",
+    "SQL",
+    "GraphQL"
   ],
-  "Databases": [
-    "MongoDB",
-    "PostgreSQL",
-    "MySQL",
-    "Redis",
-    "SQLite",
-    "Firebase"
-  ],
+  "Web Technologies": ["HTML", "CSS", "ASP.NET", "Next.js", "Express.js"],
   "Tools & Platforms": [
     "Git",
+    "Jupyter",
+    "AWS Lambda",
+    "API Gateway",
+    "MongoDB",
+    "DataGrip",
     "Docker",
-    "AWS",
-    "Linux",
-    "Nginx",
-    "Webpack",
-    "Vercel"
+    "Ollama",
+    "Azure DevOps",
+    "Azure Functions"
   ]
 }
